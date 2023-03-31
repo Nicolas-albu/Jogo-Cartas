@@ -11,6 +11,7 @@ import src.Jogador;
 
 public class Manipulador {
     private int quantidadeRodadas = 3;
+    private int rodadasSeguidas;
 
     Scanner leitor = new Scanner(System.in);
 
@@ -31,23 +32,28 @@ public class Manipulador {
     private void trataEntradaQuantidadeRodadas(String mensagemEntrada){
         try {
             System.out.print(mensagemEntrada);
-            this.setQuantidadeRodadas(leitor.nextInt());
+            // this.setQuantidadeRodadas(leitor.nextInt());
+            // return;
+            if (leitor.hasNextInt()) { 
+                this.setQuantidadeRodadas(leitor.nextInt());
+                
+            } 
+            // else if (leitor.hasNextLine()) return;
+        
         } catch (InputMismatchException error){
             System.out.println("Insira apenas valores inteiros.");
+            return;
         } catch (ExcessoRodadas error) {
             System.out.println("Não pode inserir mais de 7 rodadas.");
+            return;
         } catch (EntradaNegativo error){
             System.out.println("Não pode inserir inteiros negativos.");
+            return;
         }
     }   
 
-    public Manipulador(){
-        
-        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
-
-
-
-        leitor.close();
-
+    public Manipulador(){    
+        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");    
+        System.out.println("adf");
     }
 }
