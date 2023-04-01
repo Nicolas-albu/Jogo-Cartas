@@ -36,40 +36,54 @@ public class Manipulador {
     }
 
     private void trataEntradaQuantidadeRodadas(String mensagemEntrada){
-        try {
-            System.out.print(mensagemEntrada);
-            String saida = leitor.nextLine();
-            
-            if (saida.isBlank() || saida.isEmpty()) return;
-            
-            int quantidadeRodadas = Integer.parseInt(saida);
-            this.setQuantidadeRodadas(quantidadeRodadas);
+        while (true){
+            try {
+                System.out.print(mensagemEntrada);
+                String saida = leitor.nextLine();
+                
+                if (saida.isBlank() || saida.isEmpty()) break;
+                
+                int quantidadeRodadas = Integer.parseInt(saida);
+                this.setQuantidadeRodadas(quantidadeRodadas);
+                break;
 
-        } catch (NumberFormatException error){
-            System.out.println("Insira apenas valores inteiros.");
-        } catch (ExcessoRodadas error) {
-            System.out.println("Não pode inserir mais de 7 rodadas.");
-        } catch (EntradaNegativo error){
-            System.out.println("Não pode inserir inteiros negativos.");
+            } catch (NumberFormatException error){
+                System.out.println("Insira apenas valores inteiros.");
+                continue;
+            } catch (ExcessoRodadas error) {
+                System.out.println("Não pode inserir mais de 7 rodadas.");
+                continue;
+            } catch (EntradaNegativo error){
+                System.out.println("Não pode inserir inteiros negativos.");
+                continue;
+            }
         }
     }
 
     private void trataEntradaQuantidadeJogadores(String mensagemEntrada){
-        try {
-            System.out.print(mensagemEntrada);
-            this.setQuantidadeJogadores(leitor.nextInt());
-            
-        } catch (InputMismatchException error){
-            System.out.println("Insira apenas valores inteiros.");
-        } catch (ExcessoJogador error) {
-            System.out.println("Não pode inserir mais de 5 jogadores.");
-        } catch (EntradaNegativo error){
-            System.out.println("Não pode inserir inteiros negativos.");
+        while (true){
+            try {
+                System.out.print(mensagemEntrada);
+                int result = leitor.nextInt();
+                this.setQuantidadeJogadores(result);
+                break;
+    
+            } catch (InputMismatchException error){
+                System.out.println("Insira apenas valores inteiros.");
+                leitor.nextLine(); // limpar o buffer do Scanner
+                continue;
+            } catch (ExcessoJogador error) {
+                System.out.println("Não pode inserir mais de 5 jogadores.");
+                continue;
+            } catch (EntradaNegativo error){
+                System.out.println("Não pode inserir inteiros negativos.");
+                continue;
+            }
         }
     }
 
-    public Manipulador(){    
-        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");    
+    public Manipulador(){
+        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
         this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
     }
 }
