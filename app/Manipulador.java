@@ -32,23 +32,19 @@ public class Manipulador {
     private void trataEntradaQuantidadeRodadas(String mensagemEntrada){
         try {
             System.out.print(mensagemEntrada);
-            // this.setQuantidadeRodadas(leitor.nextInt());
-            // return;
-            if (leitor.hasNextInt()) { 
-                this.setQuantidadeRodadas(leitor.nextInt());
-                
-            } 
-            // else if (leitor.hasNextLine()) return;
-        
-        } catch (InputMismatchException error){
+            String saida = leitor.nextLine();
+            
+            if (saida.isBlank() || saida.isEmpty()) return;
+            
+            int quantidadeRodadas = Integer.parseInt(saida);
+            this.setQuantidadeRodadas(quantidadeRodadas);
+            
+        } catch (NumberFormatException error){
             System.out.println("Insira apenas valores inteiros.");
-            return;
         } catch (ExcessoRodadas error) {
             System.out.println("Não pode inserir mais de 7 rodadas.");
-            return;
         } catch (EntradaNegativo error){
             System.out.println("Não pode inserir inteiros negativos.");
-            return;
         }
     }   
 
