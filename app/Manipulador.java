@@ -1,6 +1,5 @@
 package app;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import error.EntradaNegativo;
@@ -11,7 +10,6 @@ import src.Jogador;
 
 public class Manipulador {
     private int quantidadeRodadas = 3;
-    private int rodadasSeguidas;
 
     Scanner leitor = new Scanner(System.in);
 
@@ -38,7 +36,7 @@ public class Manipulador {
             
             int quantidadeRodadas = Integer.parseInt(saida);
             this.setQuantidadeRodadas(quantidadeRodadas);
-            
+
         } catch (NumberFormatException error){
             System.out.println("Insira apenas valores inteiros.");
         } catch (ExcessoRodadas error) {
@@ -50,6 +48,6 @@ public class Manipulador {
 
     public Manipulador(){    
         this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");    
-        System.out.println("adf");
+        System.out.println("Rodadas: " + this.quantidadeRodadas);
     }
 }
