@@ -1,5 +1,6 @@
 package app;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import error.EntradaNegativo;
@@ -10,6 +11,7 @@ import src.Jogador;
 
 public class Manipulador {
     private int quantidadeRodadas = 3;
+    private int quantidadeJogadores;
 
     Scanner leitor = new Scanner(System.in);
 
@@ -17,6 +19,12 @@ public class Manipulador {
         if (novaQuantidadeRodadas > 7) throw new ExcessoRodadas();
         if (novaQuantidadeRodadas < 0) throw new EntradaNegativo();
         this.quantidadeRodadas = novaQuantidadeRodadas;
+    }
+
+    public void setQuantidadeJogadores(int novaQuantidadeJogadores) throws ExcessoJogador, EntradaNegativo {
+        if (novaQuantidadeJogadores > 5) throw new ExcessoJogador();
+        if (novaQuantidadeJogadores < 0) throw new EntradaNegativo();
+        this.quantidadeJogadores = novaQuantidadeJogadores;
     }
 
     private void criarJogador(String nome){
@@ -44,10 +52,24 @@ public class Manipulador {
         } catch (EntradaNegativo error){
             System.out.println("Não pode inserir inteiros negativos.");
         }
-    }   
+    }
+
+    private void trataEntradaQuantidadeJogadores(String mensagemEntrada){
+        try {
+            System.out.print(mensagemEntrada);
+            this.setQuantidadeJogadores(leitor.nextInt());
+            
+        } catch (InputMismatchException error){
+            System.out.println("Insira apenas valores inteiros.");
+        } catch (ExcessoJogador error) {
+            System.out.println("Não pode inserir mais de 5 jogadores.");
+        } catch (EntradaNegativo error){
+            System.out.println("Não pode inserir inteiros negativos.");
+        }
+    }
 
     public Manipulador(){    
         this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");    
-        System.out.println("Rodadas: " + this.quantidadeRodadas);
+        this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
     }
 }
