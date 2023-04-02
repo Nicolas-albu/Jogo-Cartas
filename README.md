@@ -14,7 +14,7 @@
 
 - [ ] :pushpin: Comparação das Cartas:
     - [ ] :round_pushpin: Cartas Normais:
-        - [ ] :point_right: A pontuação final da carta normal é calculada multiplicando o **valor da carta** pelo **valor do naipe da carta**. 
+        - [x] :point_right: A pontuação final da carta normal é calculada multiplicando o **valor da carta** pelo **valor do naipe da carta**. 
         - [ ] :point_right: quem tiver a maior pontuação final ganha 3 pontos na rodada
         - [ ] :point_right: quem tiver a segunda maior pontuação final ganha 2 pontos na rodada 
         - [ ] :point_right: quem tiver a menor pontuação final ganha 1 ponto na rodada
