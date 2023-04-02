@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 
@@ -117,10 +118,7 @@ public class Manipulador {
     }
 
     private void trataEntradaTipoCarta(String mensagemEntrada){
-        List<String> cartas = new ArrayList<>();
-        cartas.add("Carta Normal");
-        cartas.add("Carta Naipe");
-        cartas.add("Carta Valor");
+        List<String> cartas = Arrays.asList("Carta Normal", "Carta Naipe", "Carta Valor");
 
         while (true) {
             try {
