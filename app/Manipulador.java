@@ -1,6 +1,5 @@
 package app;
 
-import java.util.InputMismatchException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -93,19 +92,11 @@ public class Manipulador {
         while (true){
             try {
                 System.out.print(mensagemEntrada);
-                
-                // String entrada = leitor.nextLine();
-                
-                // if (entrada.isBlank() || entrada.isEmpty()) throw new NuloInvalido();
-                
-                // int quantidadeJogadores = Integer.parseInt(entrada);
-
                 this.setQuantidadeJogadores(this.tratamentoEntradas());
                 break;
     
-            } catch (InputMismatchException error) {
+            } catch (NumberFormatException error) {
                 System.out.println("Insira apenas valores inteiros.");
-                leitor.nextLine(); // limpar o buffer do Scanner
                 continue;
             } catch (ExcessoJogador error) {
                 System.out.println("Não pode inserir mais de 5 jogadores.");
@@ -137,10 +128,10 @@ public class Manipulador {
                     System.out.println("[" + (cartas.indexOf(carta)+1) + "] " + carta);;
                 }
                 System.out.print(mensagemEntrada);
-                this.setTipoCarta(leitor.nextInt());
+                this.setTipoCarta(this.tratamentoEntradas());
                 break;
 
-            } catch (InputMismatchException error) {
+            } catch (NumberFormatException error) {
                 System.out.println("Insira apenas os números das opções.");
                 continue;
             } catch (EntradaNegativo error) {
@@ -151,6 +142,9 @@ public class Manipulador {
                 continue;
             } catch (ZeroInvalido error) {
                 System.out.println("Não pode inserir zero.");
+                continue;
+            } catch (NuloInvalido error) {
+                System.out.println("Insira apenas os números dos tipos de cartas.");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
