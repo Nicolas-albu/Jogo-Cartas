@@ -26,8 +26,8 @@
         :warning: **A comparação das cartas Naipe é feita simplesmente comparando o valor numérico das cartas, onde a carta com maior valor ganha a rodada**
     
     - [ ] :round_pushpin: Cartas Valor:
-        - [ ] :point_right: Mesma forma de pontuação final das cartas normais
-        - [ ] :point_right: As cartas Valor com números primos têm seu valor final multiplicado por 3
+        - [x] :point_right: Mesma forma de pontuação final das cartas normais
+        - [x] :point_right: As cartas Valor com números primos têm seu valor final multiplicado por 3
         - [ ] :point_right: Mesma regra de comparação da comparação de cartas normais
 
     - [x] :round_pushpin: **Valores das cartas:**
