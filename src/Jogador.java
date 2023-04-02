@@ -3,8 +3,8 @@ package src;
 import error.ExcessoJogador;
 
 public class Jogador {
-    private String nome;
     private static int quantidadeJogadores;
+    private String nome;
 
     public static int getQuantidadeJogadores(){
         return quantidadeJogadores;
