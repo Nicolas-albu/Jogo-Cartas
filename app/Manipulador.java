@@ -9,6 +9,7 @@ import error.CartaInexistente;
 import error.EntradaNegativo;
 import error.ExcessoJogador;
 import error.ExcessoRodadas;
+import error.NuloInvalido;
 import error.ZeroInvalido;
 import src.Jogador;
 
@@ -50,15 +51,23 @@ public class Manipulador {
         }
     }
 
+    private int tratamentoEntradas() throws NuloInvalido {
+        String entrada = leitor.nextLine();
+                
+        if (entrada.isBlank() || entrada.isEmpty()) throw new NuloInvalido();
+        
+        return Integer.parseInt(entrada);
+    }
+
     private void trataEntradaQuantidadeRodadas(String mensagemEntrada){
         while (true){
             try {
                 System.out.print(mensagemEntrada);
-                String saida = leitor.nextLine();
+                String entrada = leitor.nextLine();
                 
-                if (saida.isBlank() || saida.isEmpty()) break;
+                if (entrada.isBlank() || entrada.isEmpty()) break;
                 
-                int quantidadeRodadas = Integer.parseInt(saida);
+                int quantidadeRodadas = Integer.parseInt(entrada);
                 this.setQuantidadeRodadas(quantidadeRodadas);
                 break;
 
@@ -84,7 +93,14 @@ public class Manipulador {
         while (true){
             try {
                 System.out.print(mensagemEntrada);
-                this.setQuantidadeJogadores(leitor.nextInt());
+                
+                // String entrada = leitor.nextLine();
+                
+                // if (entrada.isBlank() || entrada.isEmpty()) throw new NuloInvalido();
+                
+                // int quantidadeJogadores = Integer.parseInt(entrada);
+
+                this.setQuantidadeJogadores(this.tratamentoEntradas());
                 break;
     
             } catch (InputMismatchException error) {
@@ -99,6 +115,9 @@ public class Manipulador {
                 continue;
             } catch (ZeroInvalido error) {
                 System.out.println("Não pode inserir zero.");
+                continue;
+            } catch (NuloInvalido error) {
+                System.out.println("Insira apenas a quantidade de jogadores.");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
