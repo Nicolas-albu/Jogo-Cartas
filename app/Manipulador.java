@@ -19,7 +19,7 @@ public class Manipulador {
 
     Scanner leitor = new Scanner(System.in);
 
-    private void setQuantidadeRodadas(int novaQuantidadeRodadas) 
+    private void setQuantidadeRodadas(int novaQuantidadeRodadas)
             throws ExcessoRodadas, EntradaNegativo, ZeroInvalido {
         if (novaQuantidadeRodadas == 0)
             throw new ZeroInvalido();
@@ -41,7 +41,7 @@ public class Manipulador {
         this.quantidadeJogadores = novaQuantidadeJogadores;
     }
 
-    private void setTipoCarta(int novoTipoCarta) 
+    private void setTipoCarta(int novoTipoCarta)
             throws CartaInexistente, EntradaNegativo, ZeroInvalido {
         if (novoTipoCarta == 0)
             throw new ZeroInvalido();
@@ -129,18 +129,20 @@ public class Manipulador {
         }
     }
 
-    private void tratamentoNomeJogadores(){
+    private void tratamentoNomeJogadores() {
         int jogador = 0;
         while (true) {
             try {
                 if (jogador < this.quantidadeJogadores) {
-                    System.out.print("Qual o nome do jogador " + (jogador+1) + "? ");
-                } else { break; }    
+                    System.out.print("Qual o nome do jogador " + (jogador + 1) + "? ");
+                } else {
+                    break;
+                }
                 String entrada = leitor.nextLine();
-    
+
                 if (entrada.isBlank() || entrada.isEmpty())
                     throw new NuloInvalido();
-                
+
                 this.criarJogador(entrada);
                 jogador++;
                 continue;
