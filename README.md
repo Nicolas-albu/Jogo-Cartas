@@ -20,7 +20,7 @@
         - [ ] :point_right: quem tiver a menor pontuação final ganha 1 ponto na rodada
     
     - [ ] :round_pushpin: Cartas Naipe:
-        - [ ] :point_right: Todas as cartas têm o mesmo peso, ou seja, o naipe não influência na pontuação final da carta.
+        - [x] :point_right: Todas as cartas têm o mesmo peso, ou seja, o naipe não influência na pontuação final da carta.
         - [ ] :point_right: A pontuação dos jogadores é atribuída da mesma forma que na carta normal
         
         :warning: **A comparação das cartas Naipe é feita simplesmente comparando o valor numérico das cartas, onde a carta com maior valor ganha a rodada**
