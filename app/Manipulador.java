@@ -82,8 +82,7 @@ public class Manipulador {
         while (true){
             try {
                 System.out.print(mensagemEntrada);
-                int result = leitor.nextInt();
-                this.setQuantidadeJogadores(result);
+                this.setQuantidadeJogadores(leitor.nextInt());
                 break;
     
             } catch (InputMismatchException error) {
