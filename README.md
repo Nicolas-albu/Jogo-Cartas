@@ -30,7 +30,7 @@
         - [ ] :point_right: As cartas Valor com números primos têm seu valor final multiplicado por 3
         - [ ] :point_right: Mesma regra de comparação da comparação de cartas normais
 
-    - [ ] :round_pushpin: **Valores das cartas:**
+    - [x] :round_pushpin: **Valores das cartas:**
         
         | Valor | 1 |	2 |	3 |	4 | 5 | 6 | 7 | 8 | 9 |	10 | 11 | 12 | 13 |
         | :---: | :---:  |	:---:  | :---:  | :---:  | :---: | :---:  | :---:  | :---:  | :---:  |	:---:  | :---:  |	:---:  |	:---:  |
