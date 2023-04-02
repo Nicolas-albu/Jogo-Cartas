@@ -13,11 +13,24 @@ import error.ZeroInvalido;
 import src.Jogador;
 
 public class Manipulador {
+    private Scanner leitor = new Scanner(System.in);
     private int quantidadeRodadas = 3;
     private int quantidadeJogadores;
     private int tipoCarta;
 
-    Scanner leitor = new Scanner(System.in);
+    public Manipulador() {
+        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
+        this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
+        this.tratamentoNomeJogadores();
+        this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
+    }
+
+    private static void mostraException(String mensagemException) {
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_RED = "\u001B[31m";
+
+        System.out.println(ANSI_RED + mensagemException + ANSI_RESET);
+    }
 
     private void setQuantidadeRodadas(int novaQuantidadeRodadas)
             throws ExcessoRodadas, EntradaNegativo, ZeroInvalido {
@@ -53,19 +66,11 @@ public class Manipulador {
         this.tipoCarta = novoTipoCarta;
     }
 
-    private static void mostraException(String mensagemException){
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_RED = "\u001B[31m";
-
-        System.out.println(ANSI_RED + mensagemException + ANSI_RESET);
-    }
-
     private void criaJogador(String nome) {
         try {
             Jogador player = new Jogador(nome);
         } catch (ExcessoJogador error) {
             mostraException("Não pode passar do limite de jogadores");
-            // System.out.println("Não pode passar do limite de jogadores.");
         }
     }
 
@@ -142,7 +147,7 @@ public class Manipulador {
         while (true) {
             try {
                 if (jogador < this.quantidadeJogadores) {
-                    System.out.print(String.format("Qual o nome do jogador %s? ", jogador+1));
+                    System.out.print(String.format("Qual o nome do jogador %s? ", jogador + 1));
                 } else {
                     break;
                 }
@@ -170,7 +175,7 @@ public class Manipulador {
         while (true) {
             try {
                 for (String carta : cartas) {
-                    System.out.println(String.format("[%s] %s", cartas.indexOf(carta)+1, carta));
+                    System.out.println(String.format("[%s] %s", cartas.indexOf(carta) + 1, carta));
                 }
                 System.out.print(mensagemEntrada);
                 this.setTipoCarta(this.recebeEntradas());
@@ -195,12 +200,5 @@ public class Manipulador {
                 System.out.println(); // Quebra de linha para todos os casos
             }
         }
-    }
-
-    public Manipulador() {
-        this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
-        this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
-        this.tratamentoNomeJogadores();
-        this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
     }
 }
