@@ -129,6 +129,31 @@ public class Manipulador {
         }
     }
 
+    private void tratamentoNomeJogadores(){
+        int jogador = 0;
+        while (true) {
+            try {
+                if (jogador < this.quantidadeJogadores) {
+                    System.out.print("Qual o nome do jogador " + (jogador+1) + "? ");
+                } else { break; }    
+                String entrada = leitor.nextLine();
+    
+                if (entrada.isBlank() || entrada.isEmpty())
+                    throw new NuloInvalido();
+                
+                this.criarJogador(entrada);
+                jogador++;
+                continue;
+
+            } catch (NuloInvalido error) {
+                System.out.println("Insira apenas o nome do jogador.");
+                continue;
+            } finally {
+                System.out.println(); // Quebra de linha para todos os casos
+            }
+        }
+    }
+
     private void trataEntradaTipoCarta(String mensagemEntrada) {
         List<String> cartas = Arrays.asList("Carta Normal", "Carta Naipe", "Carta Valor");
 
@@ -165,6 +190,7 @@ public class Manipulador {
     public Manipulador() {
         this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
         this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
+        this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
     }
 }
