@@ -61,7 +61,7 @@ public class Manipulador {
         }
     }
 
-    private int tratamentoEntradas() throws NuloInvalido {
+    private int recebeEntradas() throws NuloInvalido {
         String entrada = leitor.nextLine();
 
         if (entrada.isBlank() || entrada.isEmpty())
@@ -105,7 +105,7 @@ public class Manipulador {
         while (true) {
             try {
                 System.out.print(mensagemEntrada);
-                this.setQuantidadeJogadores(this.tratamentoEntradas());
+                this.setQuantidadeJogadores(this.recebeEntradas());
                 break;
 
             } catch (NumberFormatException error) {
@@ -138,7 +138,7 @@ public class Manipulador {
                     System.out.println("[" + (cartas.indexOf(carta) + 1) + "] " + carta);
                 }
                 System.out.print(mensagemEntrada);
-                this.setTipoCarta(this.tratamentoEntradas());
+                this.setTipoCarta(this.recebeEntradas());
                 break;
 
             } catch (NumberFormatException error) {
