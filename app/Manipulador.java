@@ -9,6 +9,7 @@ import error.CartaInexistente;
 import error.EntradaNegativo;
 import error.ExcessoJogador;
 import error.ExcessoRodadas;
+import error.ZeroInvalido;
 import src.Jogador;
 
 
@@ -19,19 +20,22 @@ public class Manipulador {
 
     Scanner leitor = new Scanner(System.in);
 
-    private void setQuantidadeRodadas(int novaQuantidadeRodadas) throws ExcessoRodadas, EntradaNegativo {
+    private void setQuantidadeRodadas(int novaQuantidadeRodadas) throws ExcessoRodadas, EntradaNegativo, ZeroInvalido {
+        if (novaQuantidadeRodadas == 0) throw new ZeroInvalido();
         if (novaQuantidadeRodadas > 7) throw new ExcessoRodadas();
         if (novaQuantidadeRodadas < 0) throw new EntradaNegativo();
         this.quantidadeRodadas = novaQuantidadeRodadas;
     }
 
-    private void setQuantidadeJogadores(int novaQuantidadeJogadores) throws ExcessoJogador, EntradaNegativo {
+    private void setQuantidadeJogadores(int novaQuantidadeJogadores) throws ExcessoJogador, EntradaNegativo, ZeroInvalido {
+        if (novaQuantidadeJogadores == 0) throw new ZeroInvalido();
         if (novaQuantidadeJogadores > 5) throw new ExcessoJogador();
         if (novaQuantidadeJogadores < 0) throw new EntradaNegativo();
         this.quantidadeJogadores = novaQuantidadeJogadores;
     }
 
-    private void setTipoCarta(int novoTipoCarta) throws CartaInexistente, EntradaNegativo {
+    private void setTipoCarta(int novoTipoCarta) throws CartaInexistente, EntradaNegativo, ZeroInvalido {
+        if (novoTipoCarta == 0) throw new ZeroInvalido();
         novoTipoCarta--;
         if (novoTipoCarta > 2) throw new CartaInexistente();
         if (novoTipoCarta < 0) throw new EntradaNegativo();
@@ -58,14 +62,17 @@ public class Manipulador {
                 this.setQuantidadeRodadas(quantidadeRodadas);
                 break;
 
-            } catch (NumberFormatException error){
+            } catch (NumberFormatException error) {
                 System.out.println("Insira apenas valores inteiros.");
                 continue;
             } catch (ExcessoRodadas error) {
                 System.out.println("Não pode inserir mais de 7 rodadas.");
                 continue;
-            } catch (EntradaNegativo error){
+            } catch (EntradaNegativo error) {
                 System.out.println("Não pode inserir inteiros negativos.");
+                continue;
+            } catch (ZeroInvalido error) {
+                System.out.println("Não pode inserir zero.");
                 continue;
             }
         }
@@ -79,15 +86,18 @@ public class Manipulador {
                 this.setQuantidadeJogadores(result);
                 break;
     
-            } catch (InputMismatchException error){
+            } catch (InputMismatchException error) {
                 System.out.println("Insira apenas valores inteiros.");
                 leitor.nextLine(); // limpar o buffer do Scanner
                 continue;
             } catch (ExcessoJogador error) {
                 System.out.println("Não pode inserir mais de 5 jogadores.");
                 continue;
-            } catch (EntradaNegativo error){
+            } catch (EntradaNegativo error) {
                 System.out.println("Não pode inserir inteiros negativos.");
+                continue;
+            } catch (ZeroInvalido error) {
+                System.out.println("Não pode inserir zero.");
                 continue;
             }
         }
@@ -116,6 +126,9 @@ public class Manipulador {
                 continue;
             } catch (CartaInexistente error) {
                 System.out.println("O tipo de carta inserida não existe.");
+                continue;
+            } catch (ZeroInvalido error) {
+                System.out.println("Não pode inserir zero.");
                 continue;
             }
         }       
