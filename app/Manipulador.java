@@ -53,11 +53,19 @@ public class Manipulador {
         this.tipoCarta = novoTipoCarta;
     }
 
-    private void criarJogador(String nome) {
+    private static void mostraException(String mensagemException){
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_RED = "\u001B[31m";
+
+        System.out.println(ANSI_RED + mensagemException + ANSI_RESET);
+    }
+
+    private void criaJogador(String nome) {
         try {
             Jogador player = new Jogador(nome);
         } catch (ExcessoJogador error) {
-            System.out.println("Não pode passar do limite de jogadores.");
+            mostraException("Não pode passar do limite de jogadores");
+            // System.out.println("Não pode passar do limite de jogadores.");
         }
     }
 
@@ -84,16 +92,16 @@ public class Manipulador {
                 break;
 
             } catch (NumberFormatException error) {
-                System.out.println("Insira apenas valores inteiros.");
+                mostraException("Insira apenas valores inteiros");
                 continue;
             } catch (ExcessoRodadas error) {
-                System.out.println("Não pode inserir mais de 7 rodadas.");
+                mostraException("Não pode inserir mais de 7 rodadas");
                 continue;
             } catch (EntradaNegativo error) {
-                System.out.println("Não pode inserir inteiros negativos.");
+                mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (ZeroInvalido error) {
-                System.out.println("Não pode inserir zero.");
+                mostraException("Não pode inserir zero");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
@@ -109,19 +117,19 @@ public class Manipulador {
                 break;
 
             } catch (NumberFormatException error) {
-                System.out.println("Insira apenas valores inteiros.");
+                mostraException("Insira apenas valores inteiros");
                 continue;
             } catch (ExcessoJogador error) {
-                System.out.println("Não pode inserir mais de 5 jogadores.");
+                mostraException("Não pode inserir mais de 5 jogadores");
                 continue;
             } catch (EntradaNegativo error) {
-                System.out.println("Não pode inserir inteiros negativos.");
+                mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (ZeroInvalido error) {
-                System.out.println("Não pode inserir zero.");
+                mostraException("Não pode inserir zero");
                 continue;
             } catch (NuloInvalido error) {
-                System.out.println("Insira apenas a quantidade de jogadores.");
+                mostraException("Insira apenas a quantidade de jogadores");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
@@ -134,7 +142,7 @@ public class Manipulador {
         while (true) {
             try {
                 if (jogador < this.quantidadeJogadores) {
-                    System.out.print("Qual o nome do jogador " + (jogador + 1) + "? ");
+                    System.out.print(String.format("Qual o nome do jogador %s? ", jogador+1));
                 } else {
                     break;
                 }
@@ -143,12 +151,12 @@ public class Manipulador {
                 if (entrada.isBlank() || entrada.isEmpty())
                     throw new NuloInvalido();
 
-                this.criarJogador(entrada);
+                this.criaJogador(entrada);
                 jogador++;
                 continue;
 
             } catch (NuloInvalido error) {
-                System.out.println("Insira apenas o nome do jogador.");
+                mostraException("Insira apenas o nome do jogador");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
@@ -162,26 +170,26 @@ public class Manipulador {
         while (true) {
             try {
                 for (String carta : cartas) {
-                    System.out.println("[" + (cartas.indexOf(carta) + 1) + "] " + carta);
+                    System.out.println(String.format("[%s] %s", cartas.indexOf(carta)+1, carta));
                 }
                 System.out.print(mensagemEntrada);
                 this.setTipoCarta(this.recebeEntradas());
                 break;
 
             } catch (NumberFormatException error) {
-                System.out.println("Insira apenas os números das opções.");
+                mostraException("Insira apenas os números das opções");
                 continue;
             } catch (EntradaNegativo error) {
-                System.out.println("Não pode inserir inteiros negativos.");
+                mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (CartaInexistente error) {
-                System.out.println("O tipo de carta inserida não existe.");
+                mostraException("O tipo de carta inserida não existe");
                 continue;
             } catch (ZeroInvalido error) {
-                System.out.println("Não pode inserir zero.");
+                mostraException("Não pode inserir zero");
                 continue;
             } catch (NuloInvalido error) {
-                System.out.println("Insira apenas os números dos tipos de cartas.");
+                mostraException("Insira apenas os números dos tipos de cartas");
                 continue;
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
