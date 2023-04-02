@@ -74,6 +74,8 @@ public class Manipulador {
             } catch (ZeroInvalido error) {
                 System.out.println("Não pode inserir zero.");
                 continue;
+            } finally {
+                System.out.println(); // Quebra de linha para todos os casos
             }
         }
     }
@@ -98,6 +100,8 @@ public class Manipulador {
             } catch (ZeroInvalido error) {
                 System.out.println("Não pode inserir zero.");
                 continue;
+            } finally {
+                System.out.println(); // Quebra de linha para todos os casos
             }
         }
     }
@@ -129,6 +133,8 @@ public class Manipulador {
             } catch (ZeroInvalido error) {
                 System.out.println("Não pode inserir zero.");
                 continue;
+            } finally {
+                System.out.println(); // Quebra de linha para todos os casos
             }
         }       
     }
