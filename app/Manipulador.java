@@ -1,8 +1,11 @@
 package app;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import error.CartaInexistente;
 import error.EntradaNegativo;
@@ -10,9 +13,14 @@ import error.ExcessoJogador;
 import error.ExcessoRodadas;
 import error.NuloInvalido;
 import error.ZeroInvalido;
+
+import src.CartaFactory.CartaFactory;
+import src.CartaFactory.Carta;
 import src.Jogador;
 
 public class Manipulador {
+    private List<Jogador> listJogadores = new ArrayList<>();
+    private List<Carta> listCartas = new ArrayList<>();
     private Scanner leitor = new Scanner(System.in);
     private int quantidadeRodadas = 3;
     private int quantidadeJogadores;
@@ -23,6 +31,7 @@ public class Manipulador {
         this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
         this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
+        this.criaCartasParaJogadores();
     }
 
     private static void mostraException(String mensagemException) {
@@ -30,6 +39,13 @@ public class Manipulador {
         final String ANSI_RED = "\u001B[31m";
 
         System.out.println(ANSI_RED + mensagemException + ANSI_RESET);
+    }
+
+    private static void mostraResultado(String mensagemResultado) {
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_GREEN = "\u001B[32m";
+
+        System.out.println(ANSI_GREEN + mensagemResultado + ANSI_RESET);
     }
 
     private void setQuantidadeRodadas(int novaQuantidadeRodadas)
@@ -68,7 +84,7 @@ public class Manipulador {
 
     private void criaJogador(String nome) {
         try {
-            Jogador player = new Jogador(nome);
+            this.listJogadores.add(new Jogador(nome));
         } catch (ExcessoJogador error) {
             mostraException("Não pode passar do limite de jogadores");
         }
@@ -199,6 +215,12 @@ public class Manipulador {
             } finally {
                 System.out.println(); // Quebra de linha para todos os casos
             }
+        }
+    }
+
+    private void criaCartasParaJogadores() {
+        for (Jogador jogador : this.listJogadores) {
+            this.listCartas.add(CartaFactory.criaCarta(this.tipoCarta));
         }
     }
 }
