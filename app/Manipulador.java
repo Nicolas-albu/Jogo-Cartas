@@ -1,11 +1,9 @@
 package app;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import error.CartaInexistente;
 import error.EntradaNegativo;
@@ -17,12 +15,12 @@ import error.ZeroInvalido;
 import src.CartaFactory.CartaFactory;
 import src.CartaFactory.Carta;
 import src.Jogador;
+import src.Rodada;
 
 public class Manipulador {
     private List<Jogador> listJogadores = new ArrayList<>();
     private List<Carta> listCartas = new ArrayList<>();
     private Scanner leitor = new Scanner(System.in);
-    private int quantidadeRodadas = 3;
     private int quantidadeJogadores;
     private int tipoCarta;
 
@@ -56,7 +54,7 @@ public class Manipulador {
             throw new ExcessoRodadas();
         if (novaQuantidadeRodadas < 0)
             throw new EntradaNegativo();
-        this.quantidadeRodadas = novaQuantidadeRodadas;
+        Rodada.setQuantidadeRodadas(novaQuantidadeRodadas);
     }
 
     private void setQuantidadeJogadores(int novaQuantidadeJogadores)
