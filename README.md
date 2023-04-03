@@ -60,6 +60,112 @@
     - [ ] :point_right: O jogo será encerrado
     - [ ] :point_right: A pontuação de cada Jogador é apresentada com a indicação do vencedor final
 
+## Diagrama de Classes 
+
+```mermaid
+classDiagram
+
+%% DEFINIÇÃO DE CLASSES
+
+class Main {
+    +main(String[] args)$ void
+}
+
+class Carta {
+    <<Abstract>>
+    #Random geradorAleatorio
+    -String nomeValorCarta
+    -int valorCarta
+}
+
+Carta : +Carta()
+Carta : +geraPontuacaoFinal() void
+Carta : +getPontuacaoFinal()* int
+Carta : +getTipoCarta()* String
+Carta : +getNomeCarta()* String
+Carta : +novaCarta()* void
+Carta : #novoValorCarta() void
+Carta : #getNomeValorCarta() String
+Carta : #getValorCarta() int
+Carta : -geraValorCarta() void
+Carta : -geraNomeValorCarta() void
+
+class CartaNormal {
+    #int pontuacaoFinal
+    -String nomeNaipe
+    -int valorNaipe
+}
+
+CartaNormal : +CartaNormal()
+CartaNormal : +getPontuacaoFinal()* int
+CartaNormal : +getTipoCarta()* String
+CartaNormal : +getNomeCarta()* String
+CartaNormal : +novaCarta()* void
+CartaNormal : -getNomeNaipe() String
+CartaNormal : -geraValorNaipe() void
+CartaNormal : -geraNomeNaipe() void
+
+class CartaNaipe {
+    -int pontuacaoFinal
+}
+
+CartaNaipe : +CartaNaipe()
+CartaNaipe : +getPontuacaoFinal()* int
+CartaNaipe : +getTipoCarta()* String
+CartaNaipe : +getNomeCarta()* String
+CartaNaipe : +novaCarta()* void
+
+class CartaValor {
+    +CartaValor()
+    +geraPontuacaoFinal() void
+    -isPrimo(int numero) bool
+}
+
+class CartaFactory {
+    +criaCarta(int tipoCarta)$ Carta
+}
+
+class Jogador {
+    -int quantidadeJogadores$
+    -String nome
+    +Jogador(String nome)
+    +getQuantidadeJogadores()$ int
+    -setQuantidadeJogadores() void
+    +getNome() String
+}
+
+class Rodada {
+    -int quantidadeRodadas$
+    -List~Jogador~ listJogadores$
+    -List~Carta~ listCartas$
+    -Scanner leitor$
+    +Rodada(List~Jogador~ novoListJogadores, List~Carta~ novoListCartas, Scanner novoLeitor)
+    +setQuantidadeRodadas(int novaQuantidadeRodadas)$ void
+    -apresentaCartaPorJogador()$ void
+    -controlaRodadas()$ void
+}
+
+class Manipulador {
+    -List~Jogador~ listJogadores
+    -List~Cartas~ listCartas
+    -Scanner leitor
+    -int quantidadeJogadores
+    -int tipoCarta
+    +Manipulador()
+}
+
+%% RELACIONAMENTOS
+
+Main ..> Manipulador
+CartaNormal --|> Carta
+CartaNaipe --|> Carta
+CartaValor --|> CartaNormal
+CartaFactory ..> Carta
+Rodada ..> Jogador
+Manipulador ..> Jogador
+Manipulador ..> Carta
+```
+
 
 ## :thinking: Exemplos
 
