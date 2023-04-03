@@ -45,7 +45,7 @@
 
 
 - [ ] :pushpin: **A cada rodada deve acontecer o seguinte:**
-    - [ ] :point_right: Cada jogador recebe uma carta escolhida de forma aleatória pelo Jogo
+    - [x] :point_right: Cada jogador recebe uma carta escolhida de forma aleatória pelo Jogo
     - [ ] :point_right: O jogo apresenta a carta de cada jogador
     - [ ] :point_right: As cartas dos jogadores são comparadas a partir da pontuação final da carta
     - [ ] :point_right: Os **pontos** que cada jogador ganhou na rodada são armazenados
