@@ -37,7 +37,7 @@
         | Nome  | As     |         |	    |        |       |	      |        |        |	     |         | Valete |	Dama   |    Rei    |
 
 
-    - [ ] :round_pushpin: **Os Naipes:**
+    - [x] :round_pushpin: **Os Naipes:**
 
         | Valor | 2	| 3 | 4 | 5 |
         | :---: | :---:	| :---: | :---: | :---: |
@@ -46,7 +46,7 @@
 
 - [ ] :pushpin: **A cada rodada deve acontecer o seguinte:**
     - [x] :point_right: Cada jogador recebe uma carta escolhida de forma aleatória pelo Jogo
-    - [ ] :point_right: O jogo apresenta a carta de cada jogador
+    - [x] :point_right: O jogo apresenta a carta de cada jogador
     - [ ] :point_right: As cartas dos jogadores são comparadas a partir da pontuação final da carta
     - [ ] :point_right: Os **pontos** que cada jogador ganhou na rodada são armazenados
     - [ ] :point_right: **Ao final de cada rodada, o jogo mostra:**

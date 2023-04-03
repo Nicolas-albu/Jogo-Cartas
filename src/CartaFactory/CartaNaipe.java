@@ -5,6 +5,7 @@ public class CartaNaipe extends Carta {
 
     public CartaNaipe() {
         super();
+        this.geraPontuacaoFinal();
     }
 
     @Override

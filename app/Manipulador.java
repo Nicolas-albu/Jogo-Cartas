@@ -30,6 +30,7 @@ public class Manipulador {
         this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
         this.criaCartasParaJogadores();
+        this.apresentaCartaPorJogador();
     }
 
     private static void mostraException(String mensagemException) {
@@ -219,6 +220,16 @@ public class Manipulador {
     private void criaCartasParaJogadores() {
         for (Jogador jogador : this.listJogadores) {
             this.listCartas.add(CartaFactory.criaCarta(this.tipoCarta));
+        }
+    }
+
+    private void apresentaCartaPorJogador() {
+        for (Jogador jogador : this.listJogadores) {
+            int indiceJogador = this.listJogadores.indexOf(jogador);
+
+            System.out.println(
+                    String.format("Jogador %s: %s", jogador.getNome(),
+                            listCartas.get(indiceJogador).getNomeCarta()));
         }
     }
 }
