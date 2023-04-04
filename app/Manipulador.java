@@ -2,8 +2,10 @@ package app;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import error.CartaInexistente;
 import error.EntradaNegativo;
@@ -13,25 +15,29 @@ import error.NuloInvalido;
 import error.ZeroInvalido;
 
 import src.CartaFactory.CartaFactory;
+import src.OrdenaCartasPorPontuacao;
 import src.CartaFactory.Carta;
 import src.Jogador;
 import src.Rodada;
 
 public class Manipulador {
+    private Map<List<Carta>, Jogador> pontuacoesJogadores = new TreeMap<>(new OrdenaCartasPorPontuacao());
+    private List<List<Carta>> listCartas = new ArrayList<>();
     private List<Jogador> listJogadores = new ArrayList<>();
-    private List<Carta> listCartas = new ArrayList<>();
     private Scanner leitor = new Scanner(System.in);
     private int quantidadeJogadores;
     private int tipoCarta;
 
     public Manipulador() {
-        Rodada rodadas = new Rodada(listJogadores, listCartas, leitor);
+        Rodada rodadas = new Rodada(pontuacoesJogadores, leitor);
 
         this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
         this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
         this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
         this.criaCartasParaJogadores();
+        this.adicionaPontuacoesJogadores();
+        
         Rodada.controlaRodadas();
     }
 
@@ -221,7 +227,24 @@ public class Manipulador {
 
     private void criaCartasParaJogadores() {
         for (Jogador jogador : this.listJogadores) {
-            this.listCartas.add(CartaFactory.criaCarta(this.tipoCarta));
+            List<Carta> cartas = new ArrayList<>();
+    
+            for (int rodada = 1; rodada <= Rodada.getQuantidadeRodadas(); rodada++) {
+                cartas.add(CartaFactory.criaCarta(this.tipoCarta));
+            }
+            this.listCartas.add(cartas);
+        }
+        // System.out.println("Cartas: " + this.listCartas);
+    }
+
+    private void adicionaPontuacoesJogadores() {
+        for (Jogador jogador : this.listJogadores) {
+            int indiceJogador = listJogadores.indexOf(jogador);
+
+            pontuacoesJogadores.put(this.listCartas.get(indiceJogador), jogador);
+
+            System.out.println("indice: " + indiceJogador);
+            // System.out.println("Adições: " + this.listCartas.get(indiceJogador));
         }
     }
 }
