@@ -6,6 +6,7 @@ import java.util.Map;
 
 public abstract class Carta {
     protected Random geradorAleatorio = new Random();
+    protected int pontuacaoFinal;
     private String nomeValorCarta;
     private int valorCarta;
 

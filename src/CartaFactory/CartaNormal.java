@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartaNormal extends Carta {
-    protected int pontuacaoFinal;
     private String nomeNaipe;
     private int valorNaipe;
 
@@ -16,12 +15,12 @@ public class CartaNormal extends Carta {
 
     @Override
     public void geraPontuacaoFinal() {
-        this.pontuacaoFinal = super.getValorCarta() * this.valorNaipe;
+        super.pontuacaoFinal = super.getValorCarta() * this.valorNaipe;
     }
 
     @Override
     public int getPontuacaoFinal() {
-        return this.pontuacaoFinal;
+        return super.pontuacaoFinal;
     }
 
     @Override

@@ -74,46 +74,45 @@ class Main {
 class Carta {
     <<Abstract>>
     #Random geradorAleatorio
+    #int pontuacaoFinal
     -String nomeValorCarta
     -int valorCarta
+    +Carta()
+    +geraPontuacaoFinal() void
+    +getPontuacaoFinal()* int
+    +getTipoCarta()* String
+    +getNomeCarta()* String
+    +novaCarta()* void
+    #novoValorCarta() void
+    #getNomeValorCarta() String
+    #getValorCarta() int
+    -geraValorCarta() void
+    -geraNomeValorCarta() void
 }
 
-Carta : +Carta()
-Carta : +geraPontuacaoFinal() void
-Carta : +getPontuacaoFinal()* int
-Carta : +getTipoCarta()* String
-Carta : +getNomeCarta()* String
-Carta : +novaCarta()* void
-Carta : #novoValorCarta() void
-Carta : #getNomeValorCarta() String
-Carta : #getValorCarta() int
-Carta : -geraValorCarta() void
-Carta : -geraNomeValorCarta() void
 
 class CartaNormal {
-    #int pontuacaoFinal
     -String nomeNaipe
     -int valorNaipe
+    +CartaNormal()
+    +getPontuacaoFinal()* int
+    +getTipoCarta()* String
+    +getNomeCarta()* String
+    +novaCarta()* void
+    -getNomeNaipe() String
+    -geraValorNaipe() void
+    -geraNomeNaipe() void
 }
 
-CartaNormal : +CartaNormal()
-CartaNormal : +getPontuacaoFinal()* int
-CartaNormal : +getTipoCarta()* String
-CartaNormal : +getNomeCarta()* String
-CartaNormal : +novaCarta()* void
-CartaNormal : -getNomeNaipe() String
-CartaNormal : -geraValorNaipe() void
-CartaNormal : -geraNomeNaipe() void
 
 class CartaNaipe {
-    -int pontuacaoFinal
+    +CartaNaipe()
+    +getPontuacaoFinal()* int
+    +getTipoCarta()* String
+    +getNomeCarta()* String
+    +novaCarta()* void
 }
 
-CartaNaipe : +CartaNaipe()
-CartaNaipe : +getPontuacaoFinal()* int
-CartaNaipe : +getTipoCarta()* String
-CartaNaipe : +getNomeCarta()* String
-CartaNaipe : +novaCarta()* void
 
 class CartaValor {
     +CartaValor()
@@ -121,9 +120,11 @@ class CartaValor {
     -isPrimo(int numero) bool
 }
 
+
 class CartaFactory {
     +criaCarta(int tipoCarta)$ Carta
 }
+
 
 class Jogador {
     -int quantidadeJogadores$
@@ -133,6 +134,7 @@ class Jogador {
     -setQuantidadeJogadores() void
     +getNome() String
 }
+
 
 class Rodada {
     -int quantidadeRodadas$
@@ -144,6 +146,7 @@ class Rodada {
     -apresentaCartaPorJogador()$ void
     -controlaRodadas()$ void
 }
+
 
 class Manipulador {
     -List~Jogador~ listJogadores

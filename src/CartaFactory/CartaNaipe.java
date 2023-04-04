@@ -1,7 +1,6 @@
 package src.CartaFactory;
 
 public class CartaNaipe extends Carta {
-    private int pontuacaoFinal;
 
     public CartaNaipe() {
         super();
@@ -10,12 +9,12 @@ public class CartaNaipe extends Carta {
 
     @Override
     public void geraPontuacaoFinal() {
-        this.pontuacaoFinal = super.getValorCarta();
+        super.pontuacaoFinal = super.getValorCarta();
     }
 
     @Override
     public int getPontuacaoFinal() {
-        return this.pontuacaoFinal;
+        return super.pontuacaoFinal;
     }
 
     @Override
