@@ -20,6 +20,8 @@ public class CartaNormal extends Carta {
 
     @Override
     public int getPontuacaoFinal() {
+        System.out.println(super.getValorCarta());
+        System.out.println(this.valorNaipe);
         return super.pontuacaoFinal;
     }
 

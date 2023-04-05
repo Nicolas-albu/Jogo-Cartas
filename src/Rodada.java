@@ -1,25 +1,35 @@
 package src;
 
-import java.util.Scanner;
-import java.util.TreeMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+
 import java.util.List;
 import java.util.Map;
 
 import src.CartaFactory.Carta;
 
 public class Rodada {
-    private static Map<Jogador, Integer> pontuacoesJogadores = new TreeMap<>();
-    private static final List<List<Carta>> listCartas = new ArrayList<>();
-    private static final List<Jogador> listJogadores = new ArrayList<>();
-
+    // private static Map<Pontuacao, Jogador> pontuacoesJogadores = new TreeMap<>(new PontuacaoComparator());
+    private static Map<Pontuacao, Jogador> pontuacoesJogadores = new HashMap<>();
+    private static List<List<Carta>> listCartas = new ArrayList<>();
+    private static List<Jogador> listJogadores = new ArrayList<>();
     private static int quantidadeRodadas = 3;
-    private static Scanner leitor;
     private static int rodadaAtual = 1;
+    private static Scanner leitor;
 
-    public Rodada(Map<Jogador, Integer> novoPontuacoesJogadores, List<List<Carta>> listCartas, Scanner novoLeitor) {
-        pontuacoesJogadores = novoPontuacoesJogadores;
+    public Rodada(Scanner novoLeitor) {
         leitor = novoLeitor;
+    }
+
+    // private static Map<Pontuacao, Jogador> 
+
+    private static void mostraPontos(){
+        for (Map.Entry<Pontuacao, Jogador> pontuacaoJogador : pontuacoesJogadores.entrySet()) {
+            System.out.println(String.format("Jogador %s: %s", 
+            pontuacaoJogador.getValue().getNome(),pontuacaoJogador.getKey().toString()));
+        } 
     }
 
     public static List<List<Carta>> getListCartas() {
@@ -28,6 +38,14 @@ public class Rodada {
 
     public static List<Jogador> getListJogadores() {
         return listJogadores;
+    }
+
+    public static List<Jogador> setListJogadores() {
+        return listJogadores;
+    }
+
+    public static Map<Pontuacao, Jogador> getPontuacoesJogadores() {
+        return pontuacoesJogadores;
     }
 
     public static void setQuantidadeRodadas(int novaQuantidadeRodadas) {
@@ -39,20 +57,33 @@ public class Rodada {
     }
 
     private static void apresentaCartaPorJogador() {
-        for (Map.Entry<Jogador, Integer> player : pontuacoesJogadores.entrySet()) {
+        // mostraPontos();
+        for (int indicePlayer = 0; indicePlayer < listJogadores.size(); indicePlayer++) {
 
             System.out.println(
                     String.format(
                         "Jogador %s: %s", 
-                        player.getKey().getNome(),
-                        player.getValue().get(rodadaAtual-1).getNomeCarta()
+                        getListJogadores().get(indicePlayer).getNome(),
+                        getListCartas().get(indicePlayer).get(rodadaAtual-1).getNomeCarta()
                     )
             );
         }
     }
 
+    private static void mostraPontuacoesRodadas() {
+        for (Map.Entry<Pontuacao, Jogador> pontuacaoJogador : pontuacoesJogadores.entrySet()) {
+            System.out.println(
+                String.format(
+                    "Jogador %s ganhou %s pontos", 
+                    pontuacaoJogador.getValue().getNome(),
+                    pontuacaoJogador.getKey().getPontuacaoFinal()
+                )
+            );
+
+        }
+    }
+
     public static void controlaRodadas() {
-        System.out.println(pontuacoesJogadores);
         while (rodadaAtual <= quantidadeRodadas) {
             apresentaCartaPorJogador();
             mostraPontuacoesRodadas();
@@ -62,16 +93,4 @@ public class Rodada {
     }
 
 
-    private static void mostraPontuacoesRodadas() {
-        for (Map.Entry<Jogador, List<Carta>> pontuacaoJogador : pontuacoesJogadores.entrySet()) {
-            System.out.println(
-                String.format(
-                    "Jogador %s ganhou %s pontos", 
-                    pontuacaoJogador.getKey().getNome(),
-                    OperaCartas.somaPontuacaoFinal(pontuacaoJogador.getValue())
-                )
-            );
-
-        }
-    }
 }

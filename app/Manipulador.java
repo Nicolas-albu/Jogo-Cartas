@@ -1,11 +1,9 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import error.CartaInexistente;
 import error.EntradaNegativo;
@@ -15,28 +13,28 @@ import error.NuloInvalido;
 import error.ZeroInvalido;
 
 import src.CartaFactory.CartaFactory;
-import src.OrdenaCartasPorPontuacao;
 import src.CartaFactory.Carta;
 import src.Jogador;
-import src.OperaCartas;
+import src.Pontuacao;
 import src.Rodada;
 
 public class Manipulador {
-    private Map<Jogador, Integer> pontuacoesJogadores = new HashMap<>();
-    // new OrdenaCartasPorPontuacao()
     private Scanner leitor = new Scanner(System.in);
     private int quantidadeJogadores;
     private int tipoCarta;
 
     public Manipulador() {
-        Rodada rodadas = new Rodada(pontuacoesJogadores, leitor);
+        Rodada rodadas = new Rodada(leitor);
 
         this.trataEntradaQuantidadeRodadas("Quantas rodadas (padrão é 3)? ");
         this.trataEntradaQuantidadeJogadores("Quantos jogadores (máximo de 5)? ");
         this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
-        this.criaCartasParaJogadores();
-        this.adicionaPontuacoesJogadores();
+
+        Rodada.getListJogadores().forEach(Jogador::criaCartaJogador);
+
+        criaCartasParaJogadores();
+        adicionaPontuacoesJogadores();
 
         Rodada.controlaRodadas();
     }
@@ -91,12 +89,6 @@ public class Manipulador {
 
     private void criaJogador(String nome) {
         try {
-
-
-
-            // AINDA EM MUDANÇA
-
-
             Rodada.getListJogadores().add(new Jogador(nome));
         } catch (ExcessoJogador error) {
             mostraException("Não pode passar do limite de jogadores");
@@ -231,24 +223,23 @@ public class Manipulador {
         }
     }
 
-    private void criaCartasParaJogadores() {
-        for (Jogador jogador : this.listJogadores) {
+    public void criaCartasParaJogadores() {
+        for (Jogador jogador : Rodada.getListJogadores()) {
             List<Carta> cartas = new ArrayList<>();
 
             for (int rodada = 1; rodada <= Rodada.getQuantidadeRodadas(); rodada++) {
                 cartas.add(CartaFactory.criaCarta(this.tipoCarta));
             }
-            this.listCartas.add(cartas);
+            Rodada.getListCartas().add(cartas);
         }
     }
 
-    private void adicionaPontuacoesJogadores() {
-        System.out.println("listJogaores: " + this.listJogadores);
-        System.out.println("listCartas: " + this.listCartas + "\n");
-
+    public void adicionaPontuacoesJogadores() {
         int indice = 0;
-        for (Jogador jogador : this.listJogadores) {
-            pontuacoesJogadores.put(jogador, OperaCartas.somaPontuacaoFinal(this.listCartas.get(indice)));
+        for (Jogador jogador : Rodada.getListJogadores()) {
+            Rodada.getPontuacoesJogadores().put(
+                new Pontuacao(Rodada.getListCartas().get(indice)), jogador
+            );
             indice++;
         }
     }
