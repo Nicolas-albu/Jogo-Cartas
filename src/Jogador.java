@@ -3,51 +3,83 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-import error.ExcessoJogador;
-import src.CartaFactory.Carta;
 import src.CartaFactory.CartaFactory;
+import src.CartaFactory.Carta;
+
+import app.Constantes;
+import errors.ExcessoJogador;
+import errors.ExcessoPontos;
 
 public class Jogador {
-    private List<Carta> cartas = new ArrayList<>();
-    private static int quantidadeJogadores;
+    private static int quantidadeAtualJogadores;
+
+    private List<Integer> pontuacoesRodadas = new ArrayList<>();
     private String nome;
-    private int pontos;
+    private Carta carta;
 
     public Jogador(String nome) throws ExcessoJogador {
-        this.setQuantidadeJogadores();
-        if (getQuantidadeJogadores() > 5)
+        if ((getQuantidadeJogadores() + 1) > Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor())
             throw new ExcessoJogador();
+
+        quantidadeAtualJogadores++;
         this.nome = nome;
-        this.pontos = 0;
     }
 
-    public static int getQuantidadeJogadores() {
-        return quantidadeJogadores;
-    }
-
-    private void setQuantidadeJogadores() {
-        quantidadeJogadores++;
-    }
-
-    public String getNome() {
+    /**
+     * @return retorna o nome do jogador.
+     */
+    @Override
+    public String toString() {
         return this.nome;
     }
 
-    public void setCarta()
-
-    public void criaCartaJogador(int tipoCarta) {
-        Rodada.getListJogadores()
-            .forEach(jogador -> jogador.criaCartaJogador(tipoCarta));
-        Rodada.getListJogadores()
-            .forEach();
-        // this.cartas.add(CartaFactory.criaCarta(tipoCarta));
+    /**
+     * @return retorna a quantidade total de jogadores.
+     */
+    public static int getQuantidadeJogadores() {
+        return quantidadeAtualJogadores;
     }
 
-    public void calculaPontuacaoFinalPartida() {
-        // Simula a jogada do jogador e atualiza a pontuação
-        this.pontos += cartas.stream()
-                            .mapToInt(Carta::getPontuacaoFinal)
-                            .sum();
+    /**
+     * @return retorna a pontuação do jogador na rodada atual.
+     */
+    public int getPontuacaoRodada() {
+        return !this.pontuacoesRodadas.isEmpty() ? this.pontuacoesRodadas.get(Rodada.getRodadaAtual() - 1) : -1;
+        // return this.pontuacoesRodadas.get(Rodada.getRodadaAtual() - 1);
     }
 
+    /**
+     * @return retorna a carta da rodada atual do jogador.
+     */
+    public Carta getCarta() {
+        return this.carta;
+    }
+
+    /**
+     * @return retorna a pontuação da carta da rodada atual.
+     */
+    public int getPontuacaoCarta() {
+        return this.carta.getPontuacaoRodada();
+    }
+
+    /**
+     * Inseri um ponto da rodada no jogador.
+     * 
+     * @param pontoRodada é o inteiro do ponto da rodada do jogador.
+     * @throws ExcessoPontos quando é tentado inserir mais pontos do que a
+     *                       quantidade total de rodadas.
+     */
+    public void setPontoRodada(int pontoRodada) throws ExcessoPontos {
+        if ((this.pontuacoesRodadas.size() + 1) > Rodada.getQuantidadeRodadas())
+            throw new ExcessoPontos();
+
+        this.pontuacoesRodadas.add(pontoRodada);
+    }
+
+    /**
+     * Cria e adiciona uma carta para o jogador.
+     */
+    public void criaCarta() {
+        this.carta = CartaFactory.criaCarta(Rodada.getTipoCarta());
+    }
 }

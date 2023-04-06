@@ -6,12 +6,12 @@ public class CartaValor extends CartaNormal {
     }
 
     @Override
-    public void geraPontuacaoFinal() {
+    public void geraPontuacaoRodada() {
         if (this.isPrimo(super.getValorCarta())) {
-            super.pontuacaoFinal = super.getPontuacaoFinal() * 3;
+            super.pontuacaoCarta = super.getPontuacaoRodada() * 3;
             return;
         }
-        super.geraPontuacaoFinal();
+        super.geraPontuacaoRodada();
     }
 
     private boolean isPrimo(int numero) {

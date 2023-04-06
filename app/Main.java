@@ -2,7 +2,7 @@ package app;
 
 public class Main {
     public static void main(String[] args) {
-        Manipulador appMain  = new Manipulador();
-
+        Controlador appMain  = new Controlador();
+        
     }
 }

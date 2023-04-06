@@ -4,17 +4,17 @@ public class CartaNaipe extends Carta {
 
     public CartaNaipe() {
         super();
-        this.geraPontuacaoFinal();
+        this.geraPontuacaoRodada();
     }
 
     @Override
-    public void geraPontuacaoFinal() {
-        super.pontuacaoFinal = super.getValorCarta();
+    public void geraPontuacaoRodada() {
+        super.pontuacaoCarta = super.getValorCarta();
     }
 
     @Override
-    public int getPontuacaoFinal() {
-        return super.pontuacaoFinal;
+    public int getPontuacaoRodada() {
+        return super.pontuacaoCarta;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class CartaNaipe extends Carta {
     }
 
     @Override
-    public String getNomeCarta() {
-        return Integer.toString(pontuacaoFinal);
+    public String toString() {
+        return Integer.toString(super.getValorCarta());
     }
 
     @Override
-    public void novaCarta() {
+    public void atualizaCarta() {
         super.novoValorCarta();
     }
 }

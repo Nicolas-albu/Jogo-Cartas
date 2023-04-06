@@ -14,15 +14,13 @@ public class CartaNormal extends Carta {
     }
 
     @Override
-    public void geraPontuacaoFinal() {
-        super.pontuacaoFinal = super.getValorCarta() * this.valorNaipe;
+    public void geraPontuacaoRodada() {
+        super.pontuacaoCarta = super.getValorCarta() * this.valorNaipe;
     }
 
     @Override
-    public int getPontuacaoFinal() {
-        System.out.println(super.getValorCarta());
-        System.out.println(this.valorNaipe);
-        return super.pontuacaoFinal;
+    public int getPontuacaoRodada() {
+        return super.pontuacaoCarta;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class CartaNormal extends Carta {
     }
 
     @Override
-    public String getNomeCarta() {
+    public String toString() {
         if (super.getNomeValorCarta() == null) {
             return String.format("%s de %s", this.getValorCarta(), this.getNomeNaipe());
         }
@@ -39,7 +37,7 @@ public class CartaNormal extends Carta {
     }
 
     @Override
-    public void novaCarta() {
+    public void atualizaCarta() {
         super.novoValorCarta();
         this.geraValorNaipe();
         this.geraNomeNaipe();
