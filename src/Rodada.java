@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
-import app.Constantes;
-import app.Recursos;
+import errors.ExcessoJogadores;
 import errors.CartaInexistente;
-import errors.EntradaNegativo;
-import errors.ExcessoJogador;
+import errors.EntradaNegativa;
 import errors.ExcessoRodadas;
 import errors.ExcessoPontos;
 import errors.ZeroInvalido;
+
+import app.Constantes;
+import app.Recursos;
 
 /**
  * Classe responsável por controlar todo o fluxo de rodadas.
@@ -34,7 +35,7 @@ public class Rodada {
      */
     public static void executeRodada(Scanner leitor) throws ExcessoPontos {
         comparadorPontuacoes();
-        
+
         Recursos.mostraAviso(String.format("RODADA %s", rodadaAtual));
         apresentaCartaPorJogador();
 
@@ -95,11 +96,11 @@ public class Rodada {
      * @param novoTipoCarta é o inteiro referente ao tipo de carta.
      * @throws CartaInexistente quando é passado como argumento um valor
      *                          correspondente ao tipo de carta inválida.
-     * @throws EntradaNegativo  quando é passado como argumento um valor negativo.
+     * @throws EntradaNegativa  quando é passado como argumento um valor negativo.
      * @throws ZeroInvalido     quando é passado como argumento um valor zero.
      */
     public static void setTipoCarta(int novoTipoCarta)
-            throws CartaInexistente, EntradaNegativo, ZeroInvalido {
+            throws CartaInexistente, EntradaNegativa, ZeroInvalido {
         if (novoTipoCarta == 0)
             throw new ZeroInvalido();
         novoTipoCarta--;
@@ -107,7 +108,7 @@ public class Rodada {
         if (novoTipoCarta > (Constantes.QUANTIDADE_MAXIMA_CARTAS.getValor() - 1))
             throw new CartaInexistente();
         if (novoTipoCarta < 0)
-            throw new EntradaNegativo();
+            throw new EntradaNegativa();
         tipoCarta = novoTipoCarta;
     }
 
@@ -118,16 +119,16 @@ public class Rodada {
      * @throws ZeroInvalido    quando é passado como argumento o zero.
      * @throws ExcessoRodadas  quando é passado como argumento uma quantidade de
      *                         rodadas maior do que a quantidade máxima de rodadas.
-     * @throws EntradaNegativo quando é passado como argumento um valor negativo.
+     * @throws EntradaNegativa quando é passado como argumento um valor negativo.
      */
     public static void setQuantidadeRodadas(int novaQuantidadeRodadas)
-            throws ZeroInvalido, ExcessoRodadas, EntradaNegativo {
+            throws ZeroInvalido, ExcessoRodadas, EntradaNegativa {
         if (novaQuantidadeRodadas == 0)
             throw new ZeroInvalido();
         if (novaQuantidadeRodadas > Constantes.QUANTIDADE_MAXIMA_RODADAS.getValor())
             throw new ExcessoRodadas();
         if (novaQuantidadeRodadas < 0)
-            throw new EntradaNegativo();
+            throw new EntradaNegativa();
         quantidadeRodadas = novaQuantidadeRodadas;
     }
 
@@ -136,19 +137,19 @@ public class Rodada {
      * 
      * @param novaQuantidadeJogadores nova quantidade total de jogadores a ser
      *                                inserida.
-     * @throws ExcessoJogador  quando é passado como argumento maior do que a
-     *                         quantidade máxima de jogadores.
-     * @throws EntradaNegativo quando é passado como argumento um valor negativo.
-     * @throws ZeroInvalido    quando é passado como argumento o zero.
+     * @throws ExcessoJogadores quando é passado como argumento maior do que a
+     *                          quantidade máxima de jogadores.
+     * @throws EntradaNegativa  quando é passado como argumento um valor negativo.
+     * @throws ZeroInvalido     quando é passado como argumento o zero.
      */
     public static void setQuantidadeJogadores(int novaQuantidadeJogadores)
-            throws ExcessoJogador, EntradaNegativo, ZeroInvalido {
+            throws ExcessoJogadores, EntradaNegativa, ZeroInvalido {
         if (novaQuantidadeJogadores == 0)
             throw new ZeroInvalido();
         if (novaQuantidadeJogadores > Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor())
-            throw new ExcessoJogador();
+            throw new ExcessoJogadores();
         if (novaQuantidadeJogadores < 0)
-            throw new EntradaNegativo();
+            throw new EntradaNegativa();
         quantidadeTotalJogadores = novaQuantidadeJogadores;
     }
 
@@ -168,11 +169,14 @@ public class Rodada {
     private static void mostraPontuacoesRodadas() {
         listJogadores.stream()
                 .filter(jogador -> jogador.getPontuacaoRodada() > 0)
-                .forEach(jogador -> System.out.println(
+                .forEach(jogador -> Recursos.mostraAviso(
                         String.format("Jogador %s ganhou %s pontos",
                                 jogador, jogador.getPontuacaoRodada())));
     }
 
+    /**
+     * Atualiza as cartas de cada jogador na rodada atual.
+     */
     private static void atualizaCartasJogadores() {
         listJogadores.stream()
                 .forEach(jogador -> jogador.getCarta().atualizaCarta());
@@ -185,12 +189,15 @@ public class Rodada {
      *                       quantidade total rodadas.
      */
     public static void comparadorPontuacoes() throws ExcessoPontos {
+        List<Boolean> verificadores = new ArrayList<>();
+        verificadores.add(true);
+        verificadores.add(true);
+        verificadores.add(true);
+
         // Obter as pontuações das cartas na rodada atual
         List<Integer> pontuacoes = listJogadores.stream()
                 .map(Jogador::getPontuacaoCarta)
                 .collect(Collectors.toList());
-
-        System.out.println(pontuacoes);
 
         // Ordenar as pontuações das cartas em ordem decrescente
         Collections.sort(pontuacoes, Collections.reverseOrder());
@@ -200,12 +207,21 @@ public class Rodada {
             Jogador jogador = listJogadores.get(indice);
             int pontuacaoCarta = jogador.getPontuacaoCarta();
 
-            if (pontuacaoCarta == pontuacoes.get(0))
+            if (verificadores.get(0) && pontuacaoCarta == pontuacoes.get(0)) {
                 jogador.setPontoRodada(3);
-            else if (pontuacaoCarta == pontuacoes.get(1))
+                verificadores.set(0, false);
+                continue;
+            } else if (verificadores.get(1) && pontuacaoCarta == pontuacoes.get(1)) {
                 jogador.setPontoRodada(2);
-            else if (pontuacaoCarta == pontuacoes.get(2))
+                verificadores.set(1, false);
+                continue;
+            } else if (verificadores.get(2) && pontuacaoCarta == pontuacoes.get(2)) {
                 jogador.setPontoRodada(1);
+                verificadores.set(2, false);
+                continue;
+            }
+            // Adiciona zero na rodada do jogador que não ganhou na rodada atual.
+            jogador.setPontoRodada(0);
         }
     }
 }
