@@ -3,23 +3,33 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.ExcessoJogadores;
+import errors.ExcessoPontos;
+
 import src.CartaFactory.CartaFactory;
 import src.CartaFactory.Carta;
 
 import app.Constantes;
-import errors.ExcessoJogador;
-import errors.ExcessoPontos;
 
+/**
+ * Classe responsável por representar um jogador.
+ */
 public class Jogador {
     private static int quantidadeAtualJogadores;
-
     private List<Integer> pontuacoesRodadas = new ArrayList<>();
     private String nome;
     private Carta carta;
 
-    public Jogador(String nome) throws ExcessoJogador {
+    /**
+     * Cria um novo jogador.
+     * 
+     * @param nome é o nome do jogador.
+     * @throws ExcessoJogadores quando é tentado criar mais jogadores do que a
+     *                          quantidade máxima de jogadores.
+     */
+    public Jogador(String nome) throws ExcessoJogadores {
         if ((getQuantidadeJogadores() + 1) > Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor())
-            throw new ExcessoJogador();
+            throw new ExcessoJogadores();
 
         quantidadeAtualJogadores++;
         this.nome = nome;
@@ -45,7 +55,6 @@ public class Jogador {
      */
     public int getPontuacaoRodada() {
         return !this.pontuacoesRodadas.isEmpty() ? this.pontuacoesRodadas.get(Rodada.getRodadaAtual() - 1) : -1;
-        // return this.pontuacoesRodadas.get(Rodada.getRodadaAtual() - 1);
     }
 
     /**
@@ -74,6 +83,13 @@ public class Jogador {
             throw new ExcessoPontos();
 
         this.pontuacoesRodadas.add(pontoRodada);
+    }
+
+    /**
+     * Gera a pontuação da carta do jogador na rodada atual.
+     */
+    public void gerePontuacaoRodada(){
+        this.carta.geraPontuacaoRodada();
     }
 
     /**
