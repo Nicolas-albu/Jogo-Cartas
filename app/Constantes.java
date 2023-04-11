@@ -11,10 +11,18 @@ public enum Constantes {
 
     private final int valor;
 
+    /**
+     * Cria uma nova constante.
+     * 
+     * @param valor é o valor da constante.
+     */
     Constantes(int valor) {
         this.valor = valor;
     }
 
+    /**
+     * @return retorna o valor da constante.
+     */
     public int getValor() {
         return this.valor;
     }
