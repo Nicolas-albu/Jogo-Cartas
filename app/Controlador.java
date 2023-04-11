@@ -1,7 +1,10 @@
 package app;
 
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import errors.CartaInexistente;
@@ -38,6 +41,7 @@ public class Controlador {
                 .forEach(Jogador::criaCarta);
 
         this.controlaRodadas();
+        this.apresentaVencedoresFinais();
     }
 
     /**
@@ -230,5 +234,28 @@ public class Controlador {
                 System.out.println();
             }
         }
+    }
+
+    /**
+     * Apresenta os vencedores finais.
+     */
+    private void apresentaVencedoresFinais() {
+        // Ativa a geração de pontuação final de cada jogador.
+        Rodada.getListJogadores().stream()
+                .forEach(Jogador::gerePontuacaoFinal);
+
+        // Obtém uma lista das pontuações finais de cada jogador.
+        List<Integer> pontuacoesFinais = Rodada.getListJogadores().stream()
+                .map(Jogador::getPontuacaoFinal).collect(Collectors.toList());
+
+        // Obtém a maior pontuação final.
+        int pontuacaoFinalMaxima = Collections.max(pontuacoesFinais);
+
+        Recursos.mostraAviso("VENCEDOR FINAL");
+        Rodada.getListJogadores().stream()
+                .filter(jogador -> jogador.getPontuacaoFinal() == pontuacaoFinalMaxima)
+                .forEach(jogador -> Recursos.mostraResultado(
+                        String.format("Jogador %s venceu com %s pontos!",
+                                jogador, jogador.getPontuacaoFinal())));
     }
 }
