@@ -1,6 +1,20 @@
 # Jogo de Cartas :spades:
 
-:warning: **Esse jogo ainda está em desenvolvimento!**
+## :school::man_technologist: **Integrantes**
+- Nícolas Albuquerque Ramos
+- Otávio Fernandes de Oliveira
+- Renata Cristina Alves da Silva
+
+## :thinking: Resposta para As Perguntas: 
+1° - **Conseguiu ou não realizar tudo o que foi proposto? Se não conseguiu, detalhe o que
+faltou.**
+R: Sim, conseguimos.
+
+2° - **Quais os possíveis problemas que se identifica no código?**
+R: A possibilidade de empate de vencedores finais.
+
+3° - **Sentiu dificuldade para desenvolver o projeto? Quais?**
+R: Sim, com as formas de múltiplos comportamentos dos objetos dentro de um sistema, separação de responsabilidades únicas e a tentativa de tratamento de dados da forma mais genérica, onde utilizando loops clássicos faziam com que o código ficasse mais difícil de ler.
 
 ## :pushpin: Lista de Tarefas
 - [x] :point_right: O jogo poderá ter até 7 rodadas
@@ -56,119 +70,9 @@
 
 - [x] :point_right: O **resultado** de cada rodada deverá ser armazenado
 
-- [ ] :pushpin: **Após todas as rodadas:**
+- [x] :pushpin: **Após todas as rodadas:**
     - [x] :point_right: O jogo será encerrado
-    - [ ] :point_right: A pontuação de cada Jogador é apresentada com a indicação do vencedor final
-
-## Diagrama de Classes 
-
-```mermaid
-classDiagram
-
-%% DEFINIÇÃO DE CLASSES
-
-class Main {
-    +main(String[] args)$ void
-}
-
-class Carta {
-    <<Abstract>>
-    #Random geradorAleatorio
-    #int pontuacaoFinal
-    -String nomeValorCarta
-    -int valorCarta
-    +Carta()
-    +geraPontuacaoFinal() void
-    +getPontuacaoFinal()* int
-    +getTipoCarta()* String
-    +getNomeCarta()* String
-    +novaCarta()* void
-    #novoValorCarta() void
-    #getNomeValorCarta() String
-    #getValorCarta() int
-    -geraValorCarta() void
-    -geraNomeValorCarta() void
-}
-
-
-class CartaNormal {
-    -String nomeNaipe
-    -int valorNaipe
-    +CartaNormal()
-    +getPontuacaoFinal()* int
-    +getTipoCarta()* String
-    +getNomeCarta()* String
-    +novaCarta()* void
-    -getNomeNaipe() String
-    -geraValorNaipe() void
-    -geraNomeNaipe() void
-}
-
-
-class CartaNaipe {
-    +CartaNaipe()
-    +getPontuacaoFinal()* int
-    +getTipoCarta()* String
-    +getNomeCarta()* String
-    +novaCarta()* void
-}
-
-
-class CartaValor {
-    +CartaValor()
-    +geraPontuacaoFinal() void
-    -isPrimo(int numero) bool
-}
-
-
-class CartaFactory {
-    +criaCarta(int tipoCarta)$ Carta
-}
-
-
-class Jogador {
-    -int quantidadeJogadores$
-    -String nome
-    +Jogador(String nome)
-    +getQuantidadeJogadores()$ int
-    -setQuantidadeJogadores() void
-    +getNome() String
-}
-
-
-class Rodada {
-    -int quantidadeRodadas$
-    -List~Jogador~ listJogadores$
-    -List~Carta~ listCartas$
-    -Scanner leitor$
-    +Rodada(List~Jogador~ novoListJogadores, List~Carta~ novoListCartas, Scanner novoLeitor)
-    +setQuantidadeRodadas(int novaQuantidadeRodadas)$ void
-    -apresentaCartaPorJogador()$ void
-    -controlaRodadas()$ void
-}
-
-
-class Manipulador {
-    -List~Jogador~ listJogadores
-    -List~Cartas~ listCartas
-    -Scanner leitor
-    -int quantidadeJogadores
-    -int tipoCarta
-    +Manipulador()
-}
-
-%% RELACIONAMENTOS
-
-Main ..> Manipulador
-CartaNormal --|> Carta
-CartaNaipe --|> Carta
-CartaValor --|> CartaNormal
-CartaFactory ..> Carta
-Rodada ..> Jogador
-Manipulador ..> Jogador
-Manipulador ..> Carta
-```
-
+    - [x] :point_right: A pontuação de cada Jogador é apresentada com a indicação do vencedor final
 
 ## :thinking: Exemplos
 
@@ -214,3 +118,20 @@ No tipo de carta Naipe+, todas as cartas têm o mesmo peso, ou seja, o naipe nã
 No tipo de carta Valor+, as cartas com números primos têm seu valor final multiplicado por 3. Portanto, a comparação das cartas desse tipo é feita levando em consideração a multiplicação do valor final da carta pelos valores dos naipes, seguindo as mesmas regras da carta normal.
 
 Ao final da rodada, a pontuação dos jogadores é atribuída da mesma forma que na carta normal, ou seja, o jogador com a maior carta ganha 3 pontos, o segundo maior ganha 2 pontos e o terceiro maior ganha 1 ponto.
+
+
+## :page_with_curl: **Referências**
+1. [How to print color in console using System.out.println?](https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println)
+2. [Atualizar Valor HashMap](https://www.guj.com.br/t/atualizar-valor-hashmap/58647)
+3. [HashMap Java: Trabalhando com Listas key-value](https://www.devmedia.com.br/hashmap-java-trabalhando-com-listas-key-value/29811)
+4. [COMO IMPRIMIR TEXTO COLORIDO NO CONSOLE JAVA?](https://acervolima.com/como-imprimir-texto-colorido-no-console-java/)
+5. [Descobrir se um número é primo ou não](https://www.guj.com.br/t/descobrir-se-um-numero-e-primo-ou-nao/81156/4)
+6. [Descobrir se um número é primo ou não](https://www.guj.com.br/t/descobrir-se-um-numero-e-primo-ou-nao/81156/3)
+7. [Factory Method em Java](https://refactoring.guru/pt-br/design-patterns/factory-method/java/example)
+8. [CLASSES ABSTRATAS](https://www.alura.com.br/apostila-java-orientacao-objetos/classes-abstratas)
+9. [Números Aleatórios em Java – A Classe java.util.Random](https://www.devmedia.com.br/numeros-aleatorios-em-java-a-classe-java-util-random/26355)
+10. [The import java.util.ArrayList cannot be resolved](https://cursos.alura.com.br/forum/topico-the-import-java-util-arraylist-cannot-be-resolved-153016)
+11. [What does for(int i : x) do? [duplicate]](https://stackoverflow.com/questions/29588837/what-does-forint-i-x-do)
+12. [Adicionar elementos de array em ArrayList e imprimir os valores](https://pt.stackoverflow.com/questions/360215/adicionar-elementos-de-array-em-arraylist-e-imprimir-os-valores)
+13. [Como funciona a classe Scanner do Java?](https://www.devmedia.com.br/como-funciona-a-classe-scanner-do-java/28448)
+14. [Scanner error with nextInt() [duplicate]](https://stackoverflow.com/questions/12832006/scanner-error-with-nextint)
