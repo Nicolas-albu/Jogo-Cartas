@@ -1,5 +1,13 @@
 package errors;
 
+/**
+ * Classe responsável por representar a exceção do excesso de quantidade de
+ * rodadas possíveis.
+ */
 public class ExcessoRodadas extends Exception {
-    public ExcessoRodadas(){}
+    
+    /**
+     * Cria uma nova exceção ExcessoRodadas.
+     */
+    public ExcessoRodadas() {}
 }

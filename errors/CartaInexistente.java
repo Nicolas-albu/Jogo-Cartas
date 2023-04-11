@@ -1,5 +1,13 @@
 package errors;
 
+/**
+ * Classe responsável por representar a exceção de uma requisição de um tipo de
+ * carta inexistente.
+ */
 public class CartaInexistente extends Exception {
-    public CartaInexistente(){}
+    
+    /**
+     * Cria uma nova exceção CartaInexistente.
+     */
+    public CartaInexistente() {}
 }
