@@ -12,23 +12,23 @@
 | Carta normal | Carta Naipe | Carta Valor |
 |    :---:     |    :---:    |    :---:    |
 
-- [ ] :pushpin: Comparação das Cartas:
-    - [ ] :round_pushpin: Cartas Normais:
+- [x] :pushpin: Comparação das Cartas:
+    - [x] :round_pushpin: Cartas Normais:
         - [x] :point_right: A pontuação final da carta normal é calculada multiplicando o **valor da carta** pelo **valor do naipe da carta**. 
-        - [ ] :point_right: quem tiver a maior pontuação final ganha 3 pontos na rodada
-        - [ ] :point_right: quem tiver a segunda maior pontuação final ganha 2 pontos na rodada 
-        - [ ] :point_right: quem tiver a menor pontuação final ganha 1 ponto na rodada
+        - [x] :point_right: quem tiver a maior pontuação final ganha 3 pontos na rodada
+        - [x] :point_right: quem tiver a segunda maior pontuação final ganha 2 pontos na rodada 
+        - [x] :point_right: quem tiver a terceira maior pontuação final ganha 1 ponto na rodada
     
-    - [ ] :round_pushpin: Cartas Naipe:
+    - [x] :round_pushpin: Cartas Naipe:
         - [x] :point_right: Todas as cartas têm o mesmo peso, ou seja, o naipe não influência na pontuação final da carta.
-        - [ ] :point_right: A pontuação dos jogadores é atribuída da mesma forma que na carta normal
+        - [x] :point_right: A pontuação dos jogadores é atribuída da mesma forma que na carta normal
         
         :warning: **A comparação das cartas Naipe é feita simplesmente comparando o valor numérico das cartas, onde a carta com maior valor ganha a rodada**
     
-    - [ ] :round_pushpin: Cartas Valor:
+    - [x] :round_pushpin: Cartas Valor:
         - [x] :point_right: Mesma forma de pontuação final das cartas normais
         - [x] :point_right: As cartas Valor com números primos têm seu valor final multiplicado por 3
-        - [ ] :point_right: Mesma regra de comparação da comparação de cartas normais
+        - [x] :point_right: Mesma regra de comparação da comparação de cartas normais
 
     - [x] :round_pushpin: **Valores das cartas:**
         
@@ -44,20 +44,20 @@
         | Nome  | Paus  | Ouros	 | Copas | Espadas |
 
 
-- [ ] :pushpin: **A cada rodada deve acontecer o seguinte:**
+- [x] :pushpin: **A cada rodada deve acontecer o seguinte:**
     - [x] :point_right: Cada jogador recebe uma carta escolhida de forma aleatória pelo Jogo
     - [x] :point_right: O jogo apresenta a carta de cada jogador
-    - [ ] :point_right: As cartas dos jogadores são comparadas a partir da pontuação final da carta
-    - [ ] :point_right: Os **pontos** que cada jogador ganhou na rodada são armazenados
-    - [ ] :point_right: **Ao final de cada rodada, o jogo mostra:**
-        - [ ] :point_right: a carta de cada jogador
-        - [ ] :point_right: a pontuação final das cartas da rodada
-        - [ ] :point_right: a pontuação dos jogadores
+    - [x] :point_right: As cartas dos jogadores são comparadas a partir da pontuação final da carta
+    - [x] :point_right: Os **pontos** que cada jogador ganhou na rodada são armazenados
+    - [x] :point_right: **Ao final de cada rodada, o jogo mostra:**
+        - [x] :point_right: a carta de cada jogador
+        - [x] :point_right: a pontuação final das cartas da rodada
+        - [x] :point_right: a pontuação dos jogadores
 
-- [ ] :point_right: O **resultado** de cada rodada deverá ser armazenado
+- [x] :point_right: O **resultado** de cada rodada deverá ser armazenado
 
 - [ ] :pushpin: **Após todas as rodadas:**
-    - [ ] :point_right: O jogo será encerrado
+    - [x] :point_right: O jogo será encerrado
     - [ ] :point_right: A pontuação de cada Jogador é apresentada com a indicação do vencedor final
 
 ## Diagrama de Classes 
