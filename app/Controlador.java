@@ -1,17 +1,16 @@
 package app;
 
 import java.util.Scanner;
-
-import errors.CartaInexistente;
-import errors.EntradaNegativo;
-import errors.ExcessoJogador;
-import errors.ExcessoPontos;
-import errors.ExcessoRodadas;
-import errors.NuloInvalido;
-import errors.ZeroInvalido;
-
 import java.util.Arrays;
 import java.util.List;
+
+import errors.CartaInexistente;
+import errors.ExcessoJogadores;
+import errors.EntradaNegativa;
+import errors.ExcessoRodadas;
+import errors.ExcessoPontos;
+import errors.NuloInvalido;
+import errors.ZeroInvalido;
 
 import src.Jogador;
 import src.Rodada;
@@ -27,9 +26,11 @@ public class Controlador {
      */
     public Controlador() {
         this.trataEntradaQuantidadeRodadas(
-                String.format("Quantas rodadas (padrão é %s)? ", Constantes.QUANTIDADE_PADRAO_RODADAS.getValor()));
+                String.format("Quantas rodadas (padrão é %s)? ",
+                        Constantes.QUANTIDADE_PADRAO_RODADAS.getValor()));
         this.trataEntradaQuantidadeJogadores(
-                String.format("Quantos jogadores (máximo de %s)? ", Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor()));
+                String.format("Quantos jogadores (máximo de %s)? ",
+                        Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor()));
         this.tratamentoNomeJogadores();
         this.trataEntradaTipoCarta("Qual o tipo de carta do jogo? ");
 
@@ -47,7 +48,7 @@ public class Controlador {
     private void criaJogador(String nome) {
         try {
             Rodada.setJogador(new Jogador(nome));
-        } catch (ExcessoJogador error) {
+        } catch (ExcessoJogadores error) {
             Recursos.mostraException("Não pode passar do limite de jogadores");
         }
     }
@@ -67,6 +68,11 @@ public class Controlador {
         return Integer.parseInt(entrada);
     }
 
+    /**
+     * Recebe entradas do tipo String e verifica se contém espaço ou nada.
+     * 
+     * @param mensagemEntrada mensagem a ser exibida.
+     */
     private void trataEntradaQuantidadeRodadas(String mensagemEntrada) {
         while (true) {
             try {
@@ -88,7 +94,7 @@ public class Controlador {
                         String.format("Não pode inserir mais de %s rodadas",
                                 Constantes.QUANTIDADE_MAXIMA_RODADAS.getValor()));
                 continue;
-            } catch (EntradaNegativo error) {
+            } catch (EntradaNegativa error) {
                 Recursos.mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (ZeroInvalido error) {
@@ -100,6 +106,11 @@ public class Controlador {
         }
     }
 
+    /**
+     * Recebe entradas do tipo Integer para tratar a quantidade de jogadores.
+     * 
+     * @param mensagemEntrada mensagem a ser exibida.
+     */
     private void trataEntradaQuantidadeJogadores(String mensagemEntrada) {
         while (true) {
             try {
@@ -110,11 +121,11 @@ public class Controlador {
             } catch (NumberFormatException error) {
                 Recursos.mostraException("Insira apenas valores inteiros");
                 continue;
-            } catch (ExcessoJogador error) {
+            } catch (ExcessoJogadores error) {
                 Recursos.mostraException((String.format("Não pode inserir mais de %s jogadores",
                         Constantes.QUANTIDADE_MAXIMA_JOGADORES.getValor())));
                 continue;
-            } catch (EntradaNegativo error) {
+            } catch (EntradaNegativa error) {
                 Recursos.mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (ZeroInvalido error) {
@@ -129,6 +140,11 @@ public class Controlador {
         }
     }
 
+    /**
+     * Recebe entradas do tipo String para tratar o nome dos jogadores.
+     * 
+     * @throws NuloInvalido quando é recebido pelo Scanner um espaço ou nada.
+     */
     private void tratamentoNomeJogadores() {
         int jogador = 0;
         while (true) {
@@ -151,11 +167,16 @@ public class Controlador {
                 Recursos.mostraException("Insira apenas o nome do jogador");
                 continue;
             } finally {
-                System.out.println(); // Quebra de linha para todos os casos
+                System.out.println();
             }
         }
     }
 
+    /**
+     * Recebe entradas do tipo Integer para tratar o tipo de carta.
+     * 
+     * @param mensagemEntrada mensagem a ser exibida.
+     */
     private void trataEntradaTipoCarta(String mensagemEntrada) {
         List<String> cartas = Arrays.asList("Carta Normal", "Carta Naipe", "Carta Valor");
 
@@ -171,7 +192,7 @@ public class Controlador {
             } catch (NumberFormatException error) {
                 Recursos.mostraException("Insira apenas os números das opções");
                 continue;
-            } catch (EntradaNegativo error) {
+            } catch (EntradaNegativa error) {
                 Recursos.mostraException("Não pode inserir inteiros negativos");
                 continue;
             } catch (CartaInexistente error) {
@@ -184,15 +205,23 @@ public class Controlador {
                 Recursos.mostraException("Insira apenas os números dos tipos de cartas");
                 continue;
             } finally {
-                System.out.println(); // Quebra de linha para todos os casos
+                System.out.println();
             }
         }
     }
 
+    /**
+     * Controla todas as rodadas.
+     */
     private void controlaRodadas() {
         while (Rodada.getRodadaAtual() <= Rodada.getQuantidadeRodadas()) {
             try {
                 Rodada.executeRodada(leitor);
+
+                // Gera uma nova pontuação das cartas para a próxima rodada.
+                Rodada.getListJogadores().stream()
+                        .forEach(Jogador::gerePontuacaoRodada);
+
                 Rodada.aumenteRodadaAtual();
             } catch (ExcessoPontos error) {
                 Recursos.mostraException("Erro no processo de pontuação");
