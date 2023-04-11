@@ -17,6 +17,7 @@ import app.Constantes;
 public class Jogador {
     private static int quantidadeAtualJogadores;
     private List<Integer> pontuacoesRodadas = new ArrayList<>();
+    private int pontuacaoFinal;
     private String nome;
     private Carta carta;
 
@@ -58,6 +59,13 @@ public class Jogador {
     }
 
     /**
+     * @return retorna a pontuação final do jogador.
+     */
+    public int getPontuacaoFinal() {
+        return this.pontuacaoFinal;
+    }
+
+    /**
      * @return retorna a carta da rodada atual do jogador.
      */
     public Carta getCarta() {
@@ -88,8 +96,16 @@ public class Jogador {
     /**
      * Gera a pontuação da carta do jogador na rodada atual.
      */
-    public void gerePontuacaoRodada(){
+    public void gerePontuacaoRodada() {
         this.carta.geraPontuacaoRodada();
+    }
+
+    /**
+     * Gera a pontuação final de todas as rodadas pela soma das pontuações das
+     * rodadas.
+     */
+    public void gerePontuacaoFinal() {
+        this.pontuacaoFinal = this.pontuacoesRodadas.stream().mapToInt(Integer::intValue).sum();
     }
 
     /**
