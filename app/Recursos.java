@@ -1,5 +1,8 @@
 package app;
 
+/**
+ * Classe responsável por conter todas os utilitários para todo o sistema.
+ */
 public class Recursos {
     private static final String ANSI_RESET = "\u001B[0m";
 
@@ -25,6 +28,11 @@ public class Recursos {
         System.out.println(ANSI_GREEN + mensagemResultado + ANSI_RESET);
     }
 
+    /**
+     * Printa em coloração amarela para representar avisos.
+     * 
+     * @param mensagemAviso mensagem que quer mostrar.
+     */
     public static void mostraAviso(String mensagemAviso) {
         final String ANSI_YELLOW = "\u001B[33m";
 
