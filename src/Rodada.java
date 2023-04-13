@@ -67,6 +67,9 @@ public class Rodada {
         return rodadaAtual;
     }
 
+    /**
+     * Aumenta uma rodada da rodada atual.
+     */
     public static void aumenteRodadaAtual() {
         rodadaAtual++;
     }
